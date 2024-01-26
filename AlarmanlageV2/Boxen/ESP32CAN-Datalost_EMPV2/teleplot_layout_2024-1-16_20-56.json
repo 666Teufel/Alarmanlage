@@ -1,0 +1,53 @@
+{
+   "widgets": [
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 6,
+            "w": 6,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "DataLoss",
+               "sourceNames": [
+                  "DataLoss"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "DataLoss",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "type": "number"
+            }
+         ]
+      },
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 6,
+            "w": 6,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "Millisekunden_pro_10000_Nachrichten",
+               "sourceNames": [
+                  "Millisekunden_pro_10000_Nachrichten"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "Millisekunden_pro_10000_Nachrichten",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "type": "number"
+            }
+         ]
+      }
+   ],
+   "viewDuration": "86400"
+}

@@ -2,6 +2,11 @@
 // Copyright (c) Sandeep Mistry. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 int a_avarage;
+int b = 0;
+int c = 0;
+int d = 0;
+int e = 0;
+
 #include <CAN.h>
 
 void setup()
@@ -57,7 +62,7 @@ void loop()
       Serial.println(packetSize);
 
       // only print packet data for non-RTR packets
-      if ((char)CAN.read() = 'a')
+      if ((char)CAN.read() == 'a')
       {
         while (CAN.available())
         {

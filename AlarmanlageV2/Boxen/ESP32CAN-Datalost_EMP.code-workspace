@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "ESP32CAN-Datalost_EMP"
+		},
+		{
+			"path": "ESP32CAN-master"
+		},
+		{
+			"path": "ESP32CAN-Datalost_EMPV2"
+		}
+	],
+	"settings": {}
+}
