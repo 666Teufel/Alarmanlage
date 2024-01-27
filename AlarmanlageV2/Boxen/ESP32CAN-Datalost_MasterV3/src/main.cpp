@@ -12,7 +12,7 @@ unsigned long sent_messages[4] = {0, 0, 0, 0};     // Array für die anzahl der 
 unsigned long received_messages[4] = {0, 0, 0, 0}; // Array für die anzahl der empfangenden Nachrichten von einem Modul
 unsigned long message_loss[4] = {0, 0, 0, 0};      // Array für die anzahl der verlorenden Nachrichten von einem Modul
 unsigned long data_loss[4] = {0, 0, 0, 0};         // Array für die anzahl der Fehlerhaften Teile im Array
-int message[4][7];                                 // Nachrichten Spericher zum Vergleich
+String message[4][7];                              // Nachrichten Spericher zum Vergleich
 int next_modul = 2;                                // Welches modul angesprochen werden soll
 int i;                                             // Variabel für die Forschleife
 
@@ -40,6 +40,7 @@ void setup()
 
 void loop()
 {
+  delay(1000);
   randomSeed(34238400);
 
   CAN_frame_t rx_frame;
@@ -49,10 +50,10 @@ void loop()
   tx_frame.MsgID = next_modul;         // Addresse des Zieles
   tx_frame.FIR.B.DLC = 8;              // Länge der Nachricht
   tx_frame.data.u8[0] = this_modul_id; // Sender der Nachricht
-  for (i = 0; i <= 7; i++)
+  for (i = 0; i <= 6; i++)
   {
-    message[next_modul - 2][i] = random(0, 4096 + 1); // Erstellen der Zufälligen Nachricht
-    tx_frame.data.u8[i] = message[next_modul - 2][i]; // Senden der Vorher zufälig gewälten Nachricht
+    message[next_modul - 2][i] = String(random(0, 4096 + 1), HEX); // Erstellen der Zufälligen Nachricht
+    tx_frame.data.u8[i + 1] = 0x01;                                // message[next_modul - 2][i]; // Senden der Vorher zufälig gewälten Nachricht
   }
   ESP32Can.CANWriteFrame(&tx_frame);
 
