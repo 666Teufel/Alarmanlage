@@ -49,6 +49,6 @@ void loop()
     }
 
     // respond to sender
-    ESP32Can.CANWriteFrame(&rx_frame);
+    // ESP32Can.CANWriteFrame(&rx_frame);
   }
 }

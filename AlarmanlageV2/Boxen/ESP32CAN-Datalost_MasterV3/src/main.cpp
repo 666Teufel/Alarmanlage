@@ -4,8 +4,9 @@
 
 CAN_device_t CAN_cfg;             // CAN Config
 unsigned long previousMillis = 0; // will store last time a CAN Message was send
-const int interval = 0;           // interval at which send CAN Messages (milliseconds)
+const int interval = 100;         // interval at which send CAN Messages (milliseconds)
 const int rx_queue_size = 10;     // Receive Queue size
+unsigned long currentMillis = millis();
 const int this_modul_id = 1;
 
 unsigned long sent_messages[4] = {0, 0, 0, 0};     // Array für die anzahl der gesendeten Nachrichten an das Modul
@@ -40,22 +41,26 @@ void setup()
 
 void loop()
 {
-  delay(1000);
-  randomSeed(34238400);
+  currentMillis = millis();
 
   CAN_frame_t rx_frame;
-
-  CAN_frame_t tx_frame;
-  tx_frame.FIR.B.FF = CAN_frame_std;
-  tx_frame.MsgID = next_modul;         // Addresse des Zieles
-  tx_frame.FIR.B.DLC = 8;              // Länge der Nachricht
-  tx_frame.data.u8[0] = this_modul_id; // Sender der Nachricht
-  for (i = 0; i <= 6; i++)
+  if (currentMillis - previousMillis >= interval)
   {
-    message[next_modul - 2][i] = String(random(0, 4096 + 1), HEX); // Erstellen der Zufälligen Nachricht
-    tx_frame.data.u8[i + 1] = 0x01;                                // message[next_modul - 2][i]; // Senden der Vorher zufälig gewälten Nachricht
+    previousMillis = currentMillis;
+    CAN_frame_t tx_frame;
+    tx_frame.FIR.B.FF = CAN_frame_std;
+    tx_frame.MsgID = 0x02;               // Addresse des Zieles
+    tx_frame.FIR.B.DLC = 8;              // Länge der Nachricht
+    tx_frame.data.u8[0] = this_modul_id; // Sender der Nachricht
+    tx_frame.data.u8[1] = 0x01;
+    tx_frame.data.u8[2] = 0x02;
+    tx_frame.data.u8[3] = 0x03;
+    tx_frame.data.u8[4] = 0x04;
+    tx_frame.data.u8[5] = 0x05;
+    tx_frame.data.u8[6] = 0x06;
+    tx_frame.data.u8[7] = 0x07;
+    ESP32Can.CANWriteFrame(&tx_frame);
   }
-  ESP32Can.CANWriteFrame(&tx_frame);
 
   if (xQueueReceive(CAN_cfg.rx_queue, &rx_frame, 3 * portTICK_PERIOD_MS) == pdTRUE)
   {
