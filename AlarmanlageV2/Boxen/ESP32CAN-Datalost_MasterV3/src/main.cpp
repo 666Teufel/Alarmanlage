@@ -4,18 +4,20 @@
 
 CAN_device_t CAN_cfg;             // CAN Config
 unsigned long previousMillis = 0; // will store last time a CAN Message was send
-const int interval = 100;         // interval at which send CAN Messages (milliseconds)
+const int interval = 1000;        // interval at which send CAN Messages (milliseconds)
 const int rx_queue_size = 10;     // Receive Queue size
 unsigned long currentMillis = millis();
 const int this_modul_id = 1;
+const int count_slaves = 4;
 
-unsigned long sent_messages[4] = {0, 0, 0, 0};     // Array für die anzahl der gesendeten Nachrichten an das Modul
-unsigned long received_messages[4] = {0, 0, 0, 0}; // Array für die anzahl der empfangenden Nachrichten von einem Modul
-unsigned long message_loss[4] = {0, 0, 0, 0};      // Array für die anzahl der verlorenden Nachrichten von einem Modul
-unsigned long data_loss[4] = {0, 0, 0, 0};         // Array für die anzahl der Fehlerhaften Teile im Array
-String message[4][7];                              // Nachrichten Spericher zum Vergleich
-int next_modul = 2;                                // Welches modul angesprochen werden soll
-int i;                                             // Variabel für die Forschleife
+unsigned long sent_messages[count_slaves] = {0, 0, 0, 0};     // Array für die anzahl der gesendeten Nachrichten an das Modul
+unsigned long received_messages[count_slaves] = {0, 0, 0, 0}; // Array für die anzahl der empfangenden Nachrichten von einem Modul
+unsigned long message_loss[count_slaves] = {0, 0, 0, 0};      // Array für die anzahl der verlorenden Nachrichten von einem Modul
+unsigned long data_loss[count_slaves] = {0, 0, 0, 0};         // Array für die anzahl der Fehlerhaften Teile im Array
+int message[count_slaves][8];                                 // Nachrichten Spericher zum Vergleich
+int next_modul = 2;                                           // Welches modul angesprochen werden soll
+int message_id = 1;
+int i; // Variabel für die Forschleife
 
 unsigned long messages_sent_all = 0;
 unsigned long received_messages_all = 0;
@@ -26,10 +28,10 @@ unsigned long Zeit_pro_Durchschnitt = 0;
 
 void setup()
 {
-  Serial.begin(230400);
+  Serial.begin(115200);
   delay(10000);
-  Serial.println("Basic Demo - ESP32-Arduino-CAN");
-  CAN_cfg.speed = CAN_SPEED_1000KBPS;
+  Serial.println("Master Demo - ESP32-Arduino-CAN");
+  CAN_cfg.speed = CAN_SPEED_125KBPS;
   CAN_cfg.tx_pin_id = GPIO_NUM_5;
   CAN_cfg.rx_pin_id = GPIO_NUM_4;
   CAN_cfg.rx_queue = xQueueCreate(rx_queue_size, sizeof(CAN_frame_t));
@@ -41,6 +43,7 @@ void setup()
 
 void loop()
 {
+  randomSeed(23283982);
   currentMillis = millis();
 
   CAN_frame_t rx_frame;
@@ -49,17 +52,22 @@ void loop()
     previousMillis = currentMillis;
     CAN_frame_t tx_frame;
     tx_frame.FIR.B.FF = CAN_frame_std;
-    tx_frame.MsgID = 0x02;               // Addresse des Zieles
-    tx_frame.FIR.B.DLC = 8;              // Länge der Nachricht
-    tx_frame.data.u8[0] = this_modul_id; // Sender der Nachricht
-    tx_frame.data.u8[1] = 0x01;
-    tx_frame.data.u8[2] = 0x02;
-    tx_frame.data.u8[3] = 0x03;
-    tx_frame.data.u8[4] = 0x04;
-    tx_frame.data.u8[5] = 0x05;
-    tx_frame.data.u8[6] = 0x06;
-    tx_frame.data.u8[7] = 0x07;
+    tx_frame.MsgID = message_id; // Zahl der Nachricht
+    tx_frame.FIR.B.DLC = 8;      // Länge der Nachricht
+    tx_frame.data.u8[0] = next_modul;    // Empfänger der Nachricht
+    tx_frame.data.u8[1] = this_modul_id; // Sender der Nachricht
+    for (i = 2; i < tx_frame.FIR.B.DLC; i++)
+    {
+      message[next_modul][i] = random(1, 256);
+      Serial.println(message[next_modul][i]);
+      tx_frame.data.u8[i] = message[next_modul][i];
+    }
     ESP32Can.CANWriteFrame(&tx_frame);
+    next_modul++;
+    if (next_modul > count_slaves + 2)
+    {
+      next_modul = 2;
+    }
   }
 
   if (xQueueReceive(CAN_cfg.rx_queue, &rx_frame, 3 * portTICK_PERIOD_MS) == pdTRUE)
