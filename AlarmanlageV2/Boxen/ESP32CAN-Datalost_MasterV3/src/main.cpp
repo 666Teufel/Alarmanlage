@@ -43,7 +43,7 @@ void setup()
 
 void loop()
 {
-  randomSeed(23283982);
+  randomSeed(23282);
   currentMillis = millis();
 
   CAN_frame_t rx_frame;
@@ -52,13 +52,13 @@ void loop()
     previousMillis = currentMillis;
     CAN_frame_t tx_frame;
     tx_frame.FIR.B.FF = CAN_frame_std;
-    tx_frame.MsgID = message_id; // Zahl der Nachricht
-    tx_frame.FIR.B.DLC = 8;      // Länge der Nachricht
+    tx_frame.MsgID = message_id;         // Zahl der Nachricht
+    tx_frame.FIR.B.DLC = 8;              // Länge der Nachricht
     tx_frame.data.u8[0] = next_modul;    // Empfänger der Nachricht
     tx_frame.data.u8[1] = this_modul_id; // Sender der Nachricht
     for (i = 2; i < tx_frame.FIR.B.DLC; i++)
     {
-      message[next_modul][i] = random(1, 256);
+      message[next_modul][i] = random(1, 255);
       Serial.println(message[next_modul][i]);
       tx_frame.data.u8[i] = message[next_modul][i];
     }
