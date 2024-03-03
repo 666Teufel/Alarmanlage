@@ -41,7 +41,7 @@ void setup()
 void loop()
 {
 
-  CAN_frame_t rx_frame;
+   CAN_frame_t rx_frame;
 
   unsigned long currentMillis = millis();
 
