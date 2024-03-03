@@ -83,4 +83,6 @@ void loop()
   Serial.println(durchnittswert_hall[2]); //  Für Teleploter Ausgabe des durchschnittswert aller Messwertes des Hall Sensor Pins
   Serial.print(">Smooth3:");              //  Für Teleploter kennzeichnung das dieser Wert als Diagram dargestellt werden
   Serial.println(durchnittswert_hall[3]); //  Für Teleploter Ausgabe des durchschnittswert aller Messwertes des Hall Sensor Pins
+
+  delay(1000); //  Wartezeit
 }
