@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "AlarmanlageV2/Boxen/Hall_V2"
+		},
+		{
+			"name": "Esp32_S3",
+			"path": "C:/Users/Henry/Documents/PlatformIO/Projects/Esp32_S3"
+		},
+		{
+			"name": "Esp32_S3",
+			"path": "AlarmanlageV2/Boxen/Esp32_S3"
+		},
+		{
+			"name": "test",
+			"path": "C:/Users/Henry/Documents/PlatformIO/Projects/test"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"can.h": "c",
+			"can_config.h": "c"
+		}
+	}
+}
