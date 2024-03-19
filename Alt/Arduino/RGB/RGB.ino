@@ -1,0 +1,100 @@
+int Ledg = 9;
+int Ledb = 11;
+int Ledr = 10;
+int a = 1000;
+
+void setup() {
+  // put your setup code here, to run once:
+pinMode(Ledg, OUTPUT);
+pinMode(Ledb, OUTPUT);
+pinMode(Ledr, OUTPUT);
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+analogWrite(Ledr, 219);
+analogWrite(Ledb, 99);
+analogWrite(Ledg, 22);
+delay(a);
+analogWrite(Ledr, 123);
+analogWrite(Ledb, 156);
+analogWrite(Ledg, 33);
+delay(a);
+analogWrite(Ledr, 218);
+analogWrite(Ledb, 71);
+analogWrite(Ledg, 142);
+delay(a);
+analogWrite(Ledr, 154);
+analogWrite(Ledb, 243);
+analogWrite(Ledg, 10);
+delay(a);
+analogWrite(Ledr, 154);
+analogWrite(Ledb, 10);
+analogWrite(Ledg, 243);
+delay(a);
+analogWrite(Ledr, 181);
+analogWrite(Ledb, 240);
+analogWrite(Ledg, 239);
+delay(a);
+analogWrite(Ledr, 86);
+analogWrite(Ledb, 12);
+analogWrite(Ledg, 232);
+delay(a);
+analogWrite(Ledr, 143);
+analogWrite(Ledb, 23);
+analogWrite(Ledg, 114);
+delay(a);
+analogWrite(Ledr, 139);
+analogWrite(Ledb, 114);
+analogWrite(Ledg, 27);
+delay(a);
+analogWrite(Ledr, 240);
+analogWrite(Ledb, 145);
+analogWrite(Ledg, 159);
+delay(a);
+analogWrite(Ledr, 78);
+analogWrite(Ledb, 115);
+analogWrite(Ledg, 250);
+delay(a);
+analogWrite(Ledr, 142);
+analogWrite(Ledb, 111);
+analogWrite(Ledg, 202);
+delay(a);
+analogWrite(Ledr, 172);
+analogWrite(Ledb, 177);
+analogWrite(Ledg, 175);
+delay(a);
+analogWrite(Ledr, 53);
+analogWrite(Ledb, 0);
+analogWrite(Ledg, 12);
+delay(a);
+analogWrite(Ledr, 65);
+analogWrite(Ledb, 11);
+analogWrite(Ledg, 133);
+delay(a);
+analogWrite(Ledr, 144);
+analogWrite(Ledb, 227);
+analogWrite(Ledg, 19);
+delay(a);
+analogWrite(Ledr, 43);
+analogWrite(Ledb, 70);
+analogWrite(Ledg, 203);
+delay(a);
+analogWrite(Ledr, 84);
+analogWrite(Ledb, 86);
+analogWrite(Ledg, 70);
+delay(a);
+analogWrite(Ledr, 205);
+analogWrite(Ledb, 65);
+analogWrite(Ledg, 45);
+delay(a);
+analogWrite(Ledr, 0);
+analogWrite(Ledb, 0);
+analogWrite(Ledg, 255);
+delay(a);
+analogWrite(Ledr, 0);
+analogWrite(Ledb, 255);
+analogWrite(Ledg, 0);
+delay(a);
+}

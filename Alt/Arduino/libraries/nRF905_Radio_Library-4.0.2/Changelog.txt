@@ -1,0 +1,48 @@
+2020-11-02:
+	- Version 4.0.2
+	- No real changes, just needed to fix release versioning on GitHub
+
+2020-11-01:
+	- Version 4.0.1
+	- Fixed issue with SPI.usingInterrupts() not being supported on ESP platforms
+
+2020-11-01:
+	- Version 4.0.0
+	- Re-written in C++ with full Arduino compatibility. Original AVR C version can be found here https://github.com/zkemble/nRF905
+
+2020-10-01:
+	- Version 3.1.0
+	- Added all callbacks example
+	- Added some MCU autodetection for setting up the SPI pins
+	- Added functions to individually set RX and TX payload sizes
+
+2017-09-12:
+	- Version 3
+	- Simpified the library API
+	- Now uses callbacks for when events occur (valid packet received, invalid packet received, address match, transmission complete).
+	- Now uses Arduino interrupt handling when using the library in the Arduino environment
+	- And various other things
+
+2015-08-31:
+	- Added ability to read config registers, mainly for debugging
+	- Fixed issue with non-Arduino version where using a pin other than B2 for SPI SS wouldn't work
+
+2014-01-20:
+	- Tons of fixes, improvements, generally works much better
+
+2013-01-18:
+	- Removed ISR_NOBLOCK attribute from ISR
+
+2013-01-20:
+	- Bug fix: Destination and source were the wrong way round in memcpy()
+
+2013-01-05:
+	- Minor optimisation (~14bytes smaller, probably uses fewer CPU cycles)
+
+2013-01-04:
+	- Instead of disabling global interrupts when using SPI, just the pin change interrupt for DR is disabled.
+	- Couldn't compile with interrupts disabled.
+	- Putting module into receive mode was done in the wrong place in the non-arduino examples.
+
+2013-01-01:
+	- Initial release

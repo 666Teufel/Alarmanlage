@@ -1,0 +1,14 @@
+16000000/
+8000000/
+out/
+docs/
+.*.swp
+.*.swo
+Session.vim
+*.swp
+*.swo
+version.h
+*.orig
+*.bak
+PINS_*/
+*.exe

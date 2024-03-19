@@ -176,13 +176,13 @@ void loop()
   }
   CAN0.sendFrame(message);
  Serial.println(Can0.available());
-  if (durchnittswert_hall[0] > 19000 or durchnittswert_hall[1] > 19000)
+  if (durchnittswert_hall[0] > 19000 && durchnittswert_hall[1] > 19000)
   {
-    leds[0] = CRGB(255, 0, 0);
+    leds[0] = CRGB(0, 10, 0);
   }
-  else if (durchnittswert_hall[0] < 19000 && durchnittswert_hall[1] < 19000)
+  else if (durchnittswert_hall[0] < 19000 or durchnittswert_hall[1] < 19000)
   {
-    leds[0] = CRGB(0, 25, 0);
+    leds[0] = CRGB(25, 0, 0);
   }
 
   FastLED.show();
